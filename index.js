@@ -2,6 +2,8 @@ const server = require("http").Server();
 const io = require("socket.io")(server);
 const port = require("./config").SERVER_PORT;
 
+require("./backend/connect")(io);
+
 const banner = `
 ************************************
     Init server with socket io
@@ -9,11 +11,6 @@ const banner = `
 Status: Online
 Listening on port :${port}
 `;
-io.on("connection", socket => {
-  socket.on("register", user => {
-    console.log(`User register: ${user.name}`);
-  });
-});
 
 server.listen(port, () => {
   console.info(banner);
